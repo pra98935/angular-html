@@ -1,0 +1,119 @@
+<div class="container">
+    <div class="row">
+      <form class="form-horizontal login-form" #loginForm="ngForm" (ngSubmit)="insert()" novalidate>
+        <fieldset>
+          <legend>LOGIN</legend>
+
+          <div class="form-group">
+            <label for="inputName" class="col-lg-2 control-label">Name</label>
+            <div class="col-lg-10">
+              <input type="text" class="form-control" id="inputName" placeholder="Name" [(ngModel)]="register.name" name="register.name" #myName="ngModel" required>
+              
+              <!-- Name Validation -->
+              <div *ngIf="isNameValid == 'false'">
+                  <div *ngIf="myName.errors" class="alert alert-danger">
+                      <div [hidden]="!myName.errors.required">
+                        Name is required
+                      </div>
+                  </div>
+              </div>
+              
+              
+            </div>
+          </div>  
+
+          <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+            <div class="col-lg-10">
+              <input type="text" class="form-control" id="inputEmail" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  [(ngModel)]="register.email" name="register.email" #myEmail="ngModel" autocomplete="off" required>
+               
+              <!-- Email Validation -->
+              <div *ngIf="isEmailValid == 'false'">
+                  <div *ngIf="myEmail.errors && (myEmail.dirty || myEmail.touched)" class="alert alert-danger">
+                        <div [hidden]="!myEmail.errors.required">
+                          Email is required
+                        </div>
+
+                        <div [hidden]="!myEmail.errors.pattern">
+                          Email is not valid
+                        </div>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+            <div class="col-lg-10">
+              <input type="password" class="form-control" id="inputPassword" placeholder="Password" minlength="8" maxlength="12" [(ngModel)]="register.password" name="register.password" #myPassword="ngModel" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="hobby" class="col-lg-2 control-label">Hobby</label>
+            <div class="col-lg-10">
+              
+              <!-- <input type="checkbox" name="register.hobby" value="register.dance" [(ngModel)]="register.hobby"> Dance
+              <input type="checkbox" name="register.hobby" value="register.singing" [(ngModel)]="register.hobby"> singing -->
+              
+              <div *ngFor="let option of options">  
+                <!-- {{register.hobby[i]=option.default}}
+                {{register.hobby[i]}} -->
+                <input type="checkbox" name="register.hobby" [(ngModel)]="option['checked']" [value]="option.value"/>
+                {{option.display}}
+              </div> 
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="gender" class="col-lg-2 control-label">Gender</label>
+            <div class="col-lg-10">
+              <div *ngFor="let gender1 of genders">  
+                <input type="radio" name="register.gender" [(ngModel)]="register.gender" [value]="gender1.value">
+                {{gender1.display}}
+              </div>  
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="role" class="col-lg-2 control-label">Role</label>
+            <div class="col-lg-10">
+              <select name="register.state" [(ngModel)]="register.state">
+                <option *ngFor="let role of roles" [value]="role.value">  
+                  {{role.display}}
+                </option>
+              </select>   
+                <!-- State Validation -->
+                {{isStateValid}}
+                <div *ngIf="isStateValid == 'false'">
+                    <div *ngIf="myState.errors" class="alert alert-danger">
+                        <div [hidden]="!myState.errors.required">
+                          State is required
+                        </div>
+                    </div>
+                </div>
+
+              
+            </div>
+          </div>
+
+          
+          
+          <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+              <button type="submit" class="btn btn-primary" >Submit</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+      <!-- <app-sidenav></app-sidenav> -->
+      
+      <div *ngIf="responseObject && responseObject.message" class="text-center">
+        {{responseObject.message}}
+      </div>
+
+    </div>
+</div>
