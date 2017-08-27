@@ -36,7 +36,32 @@ export class RegisterComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit() {
+  ngAfterViewInit(){  //once
+    console.log("After View Init");
+  }
+
+  ngOnChanges(){
+    console.log("ngOnChanges");
+  }
+
+  // ngDoCheck(){ //multiple
+  //   console.log("ngDoCheck");
+  // }
+
+  ngAfterContentInit(){ //once
+    console.log("ngAfterContentInit");
+  }
+
+  // ngAfterContentChecked(){ //multiple
+  //   console.log("ngAfterContentChecked");
+  // }
+
+  // ngAfterViewChecked(){ //multiple
+  //   console.log("ngAfterViewChecked");
+  // }
+
+  ngOnInit() { //once
+    console.log("ngonIt");
     this.register.gender="M";
     this.register.state="MP";
     
